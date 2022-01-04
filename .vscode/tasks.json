@@ -1,0 +1,43 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Update requirements",
+            "type": "shell",
+            "command": "${command:python.interpreterPath} -m pip freeze > requirements.txt",
+            "windows": {
+                "command": "${command:python.interpreterPath} -m pip freeze > requirements.txt"
+            },
+        },
+        {
+            "label": "Linting",
+            "type": "shell",
+            "command": "${command:python.interpreterPath} -m pylint --rcfile= .pylintrc",
+            "windows": {
+                "command": "${command:python.interpreterPath} -m pylint --rcfile= .pylintrc",
+            },
+        },
+        {
+            "label": "Installation",
+            "type": "shell",
+            "command": "${config:python.pythonPath} -m pip install -e .",
+            "windows": {
+                "command": "${config:python.pythonPath} -m pip install -e .",
+            },
+            "dependsOn": ["Update requirements", "Linting"],
+        },
+        {
+            "label": "Unit testing",
+            "type": "shell",
+            "command": "${command:python.interpreterPath} -m tox .",
+            "windows": {
+                "command": "${command:python.interpreterPath} -m tox .",
+            },
+            "dependsOn": ["Installation"],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+    ]
+}
