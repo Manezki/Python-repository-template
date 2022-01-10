@@ -4,9 +4,9 @@
         {
             "label": "Update requirements",
             "type": "shell",
-            "command": "${command:python.interpreterPath} -m pip freeze > requirements.txt",
+            "command": "${command:python.interpreterPath} -m pip freeze | grep ^(?!-e ) > requirements.txt",
             "windows": {
-                "command": "${command:python.interpreterPath} -m pip freeze > requirements.txt"
+                "command": "${command:python.interpreterPath} -m pip freeze | Where-Object { $_ -NotMatch '^-e ' } > requirements.txt"
             },
         },
         {
