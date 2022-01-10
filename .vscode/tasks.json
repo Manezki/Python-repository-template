@@ -10,21 +10,21 @@
             },
         },
         {
-            "label": "Linting",
-            "type": "shell",
-            "command": "${command:python.interpreterPath} -m pylint --rcfile= .pylintrc $(git ls-files '*.py')",
-            "windows": {
-                "command": "${command:python.interpreterPath} -m pylint --rcfile= .pylintrc $(git ls-files '*.py')",
-            },
-        },
-        {
             "label": "Installation",
             "type": "shell",
             "command": "${config:python.pythonPath} -m pip install -e .",
             "windows": {
                 "command": "${config:python.pythonPath} -m pip install -e .",
             },
-            "dependsOn": ["Update requirements", "Linting"],
+        },
+        {
+            "label": "Linting",
+            "type": "shell",
+            "command": "${command:python.interpreterPath} -m pylint --rcfile= .pylintrc $(git ls-files '*.py')",
+            "windows": {
+                "command": "${command:python.interpreterPath} -m pylint --rcfile= .pylintrc $(git ls-files '*.py')",
+            },
+            "dependsOn": ["Installation"],
         },
         {
             "label": "Unit testing",
@@ -34,6 +34,11 @@
                 "command": "${command:python.interpreterPath} -m tox .",
             },
             "dependsOn": ["Installation"],
+        },
+        {
+            "label": "Local build",
+            "type": "shell",
+            "dependsOn": ["Unit testing", "Update requirements", "Linting"],
             "group": {
                 "kind": "build",
                 "isDefault": true
