@@ -19,13 +19,23 @@
             },
         },
         {
+            "label": "Autoformat using Black",
+            "type": "shell",
+            // Line-length parameter should match the .pylintrc's max-line-length configurations
+            "command": "${command:python.interpreterPath} -m black --line-length=100 $(git ls-files '*.py')",
+            "windows": {
+                "command": "${command:python.interpreterPath} -m black --line-length=100 $(git ls-files '*.py')",
+            },
+            "dependsOn": ["Installation"],
+        },
+        {
             "label": "Linting",
             "type": "shell",
             "command": "${command:python.interpreterPath} -m pylint --rcfile= .pylintrc $(git ls-files '*.py')",
             "windows": {
                 "command": "${command:python.interpreterPath} -m pylint --rcfile= .pylintrc $(git ls-files '*.py')",
             },
-            "dependsOn": ["Installation"],
+            "dependsOn": ["Autoformat using Black"],
         },
         {
             "label": "Unit testing",
