@@ -1,6 +1,7 @@
 # pylint: disable=unused-import, no-self-use, import-outside-toplevel
 import unittest
 
+
 class TestPackaging(unittest.TestCase):
     """
     Setup.py correctly packages the project
