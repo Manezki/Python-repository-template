@@ -25,7 +25,7 @@ jobs:
           python -m black --check --diff --line-length=100 $(git ls-files '*.py')
       - name: Lint Python files
         run: |
-          python -m pylint --rcfile= .pylintrc $(git ls-files '*.py')
+          python -m pylint --rcfile=.pylintrc $(git ls-files '*.py')
       - name: Type check
         run: |
           python -m mypy $(git ls-files '*.py')
