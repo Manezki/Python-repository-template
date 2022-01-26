@@ -9,6 +9,7 @@
                 // PowerShell <6.0 does append BOM to the output-file. This confuses git. Use ASCII instead
                 "command": "${command:python.interpreterPath} -m pip freeze | Where-Object { $_ -NotMatch '^-e ' } | Out-File -Encoding ASCII '.\\requirements.txt'"
             },
+            "problemMatcher": [],
         },
         {
             "label": "Installation",
@@ -17,6 +18,7 @@
             "windows": {
                 "command": "${config:python.pythonPath} -m pip install -e .",
             },
+            "problemMatcher": [],
         },
         {
             "label": "Autoformat using Black",
@@ -26,6 +28,7 @@
             "windows": {
                 "command": "${command:python.interpreterPath} -m black --line-length=100 $(git rev-parse --show-toplevel)",
             },
+            "problemMatcher": [],
             "dependsOn": ["Installation"],
         },
         {
@@ -35,6 +38,7 @@
             "windows": {
                 "command": "${command:python.interpreterPath} -m pylint --rcfile=.pylintrc tests src setup.py",
             },
+            "problemMatcher": [],
             "dependsOn": ["Autoformat using Black"],
         },
         {
@@ -44,6 +48,7 @@
             "windows": {
                 "command": "${command:python.interpreterPath} -m mypy $(git rev-parse --show-toplevel)",
             },
+            "problemMatcher": [],
             "dependsOn": ["Installation"],
         },
         {
@@ -53,6 +58,7 @@
             "windows": {
                 "command": "${command:python.interpreterPath} -m tox .",
             },
+            "problemMatcher": [],
             "dependsOn": ["Installation"],
         },
         {
