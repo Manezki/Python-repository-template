@@ -29,7 +29,7 @@
                 "command": "${command:python.interpreterPath} -m black --line-length=100 $(git rev-parse --show-toplevel)",
             },
             "problemMatcher": [],
-            "dependsOn": ["Installation"],
+            "dependsOn": [],
         },
         {
             "label": "Linting",
@@ -49,7 +49,7 @@
                 "command": "${command:python.interpreterPath} -m mypy $(git rev-parse --show-toplevel)",
             },
             "problemMatcher": [],
-            "dependsOn": ["Installation"],
+            "dependsOn": [],
         },
         {
             "label": "Unit testing",
@@ -59,16 +59,22 @@
                 "command": "${command:python.interpreterPath} -m tox .",
             },
             "problemMatcher": [],
-            "dependsOn": ["Installation"],
+            "dependsOn": [],
         },
         {
             "label": "Local build",
             "type": "shell",
-            "dependsOn": ["Unit testing", "Update requirements", "Linting", "Mypy type checking"],
+            "dependsOn": ["Installation", "Local build-triggers"],
+            "dependsOrder": "sequence",
             "group": {
                 "kind": "build",
                 "isDefault": true
             }
+        },
+        {
+            "label": "Local build-triggers",
+            "type": "shell",
+            "dependsOn": ["Unit testing", "Linting", "Mypy type checking"],
         },
     ]
 }
